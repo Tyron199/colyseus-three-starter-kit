@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["vite/client"],
+    "strict": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // required to type-check the server's schema classes,
+    // which are imported (type-only) for end-to-end typing
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false
+  },
+  "include": ["src"]
+}

@@ -1,0 +1,252 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(56, 189, 248, 0.24), transparent 32%),
+    radial-gradient(circle at 80% 18%, rgba(245, 158, 11, 0.18), transparent 28%),
+    linear-gradient(145deg, #020617 0%, #0f172a 52%, #111827 100%);
+  color: #fff;
+  font-family: Inter, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  touch-action: none; /* no pull-to-refresh / scroll while playing */
+}
+
+canvas {
+  display: block;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ---------------------------------------------------------- join screen */
+
+#join {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(14, 165, 233, 0.18), transparent 26%),
+    radial-gradient(circle at 16% 80%, rgba(168, 85, 247, 0.16), transparent 28%);
+}
+
+#join-card {
+  position: relative;
+  width: min(430px, calc(100vw - 48px));
+  padding: 32px;
+  border-radius: 24px;
+  background:
+    linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.74)),
+    rgba(15, 23, 42, 0.86);
+  border: 1px solid rgba(125, 211, 252, 0.25);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(18px);
+}
+
+#join-card .eyebrow {
+  margin-bottom: 8px;
+  color: #7dd3fc;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+#join-card h1 {
+  margin: 0;
+  background: linear-gradient(90deg, #f8fafc, #7dd3fc 48%, #fbbf24);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 34px;
+  letter-spacing: -0.04em;
+  text-align: center;
+  text-shadow: 0 0 32px rgba(56, 189, 248, 0.24);
+}
+
+#join-card .tagline {
+  margin: 10px 0 24px;
+  color: rgba(226, 232, 240, 0.76);
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+#join-card .field {
+  display: block;
+  margin-bottom: 16px;
+}
+
+#join-card .field span {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+#join-card input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid rgba(125, 211, 252, 0.2);
+  border-radius: 12px;
+  outline: none;
+  background: rgba(2, 6, 23, 0.58);
+  color: #fff;
+  font: inherit;
+  transition: border-color 140ms ease, box-shadow 140ms ease, background 140ms ease;
+}
+
+#join-card input:focus {
+  border-color: rgba(125, 211, 252, 0.72);
+  background: rgba(2, 6, 23, 0.78);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.18);
+}
+
+#join-card button {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid rgba(125, 211, 252, 0.34);
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0ea5e9, #2563eb 55%, #7c3aed);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 16px 36px rgba(37, 99, 235, 0.28);
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+
+#join-card button:hover:not(:disabled) {
+  box-shadow: 0 20px 46px rgba(37, 99, 235, 0.36);
+  transform: translateY(-1px);
+}
+
+#join-card button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+#join-error {
+  margin-top: 14px;
+  color: #f87171;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* ---------------------------------------------------------- in-game HUD */
+
+#hud {
+  position: fixed;
+  z-index: 2;
+  top: 16px;
+  left: 16px;
+  padding: 12px 14px;
+  border: 1px solid rgba(125, 211, 252, 0.2);
+  border-radius: 16px;
+  background: rgba(2, 6, 23, 0.52);
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.6;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.28);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  pointer-events: none;
+  user-select: none;
+}
+
+#hud .hint {
+  color: rgba(226, 232, 240, 0.64);
+}
+
+#leave-button {
+  margin-top: 8px;
+  padding: 6px 14px;
+  border: 1px solid rgba(248, 113, 113, 0.32);
+  border-radius: 999px;
+  background: rgba(127, 29, 29, 0.24);
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  pointer-events: auto; /* the HUD itself ignores pointer events */
+}
+
+#status.error {
+  color: #f87171;
+}
+
+/* ---------------------------------------------------------- touch joystick */
+
+#joystick {
+  position: fixed;
+  z-index: 2;
+  left: max(24px, env(safe-area-inset-left));
+  bottom: max(24px, env(safe-area-inset-bottom));
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(125, 211, 252, 0.13), rgba(15, 23, 42, 0.42));
+  border: 2px solid rgba(125, 211, 252, 0.32);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28), inset 0 0 18px rgba(125, 211, 252, 0.12);
+  backdrop-filter: blur(10px);
+  touch-action: none;
+}
+
+#joystick-thumb {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 48px;
+  height: 48px;
+  margin: -24px 0 0 -24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(125, 211, 252, 0.46));
+  box-shadow: 0 0 18px rgba(125, 211, 252, 0.28);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------- overlay */
+
+#overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background:
+    radial-gradient(circle at center, rgba(14, 165, 233, 0.12), transparent 34%),
+    rgba(2, 6, 23, 0.82);
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+  backdrop-filter: blur(12px);
+}
+
+#overlay-button {
+  padding: 12px 32px;
+  border: 1px solid rgba(125, 211, 252, 0.42);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.32), rgba(37, 99, 235, 0.24));
+  color: #fff;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+#overlay-button:active {
+  background: rgba(14, 165, 233, 0.4);
+}
