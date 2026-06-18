@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "name": "colyseus-three-starter-kit",
+  "version": "0.1.0",
+  "description": "Barebones starter kit for multiplayer 3D browser games: Colyseus server + Three.js client",
+  "type": "module",
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "engines": {
+    "node": ">= 20.9.0"
+  },
+  "scripts": {
+    "dev": "concurrently -n server,client -c blue,magenta \"npm run dev -w server\" \"npm run dev -w client\"",
+    "build": "npm run build -w server && npm run build -w client",
+    "test": "npm test -w server"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}

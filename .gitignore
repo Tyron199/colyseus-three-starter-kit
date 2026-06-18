@@ -1,0 +1,22 @@
+# dependencies
+node_modules/
+
+# build output
+build/
+dist/
+
+# environment
+.env
+.env.*
+
+# logs
+*.log
+
+# colyseus
+.colyseus-cloud.json
+.devmode.json
+
+# os / editor
+.DS_Store
+.idea/
+.vscode/
